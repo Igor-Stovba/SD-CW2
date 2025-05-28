@@ -15,20 +15,22 @@ def log_to_db(event_type, data):
     finally:
         conn.close()
 
-def on_message(channel, method, properties, body):
+def on_message_orders(channel, method, properties, body):
     data = json.loads(body)
     log_to_db(method.routing_key, data)
-    print(f"Logged: {method.routing_key}")
+    print(f"on_message_orders, Logged: {method.routing_key}")
 
+def on_message_feedback(channel, method, properties, body):
+    data = json.loads(body)
+    log_to_db(method.routing_key, data)
+    print(f"on_message_feedback, Logged: {method.routing_key}")
 
 def start_server():
     connection = pika.BlockingConnection(pika.URLParameters(RABBITMQ_URL))
     channel = connection.channel()
 
-    channel.basic_consume(queue='orders.server', on_message_callback=on_message, auto_ack=True)
-    # channel.basic_consume(queue='feedback.worker', on_message_callback=on_message, auto_ack=True)
-    # channel.basic_consume(queue='maintenance.worker', on_message_callback=on_message, auto_ack=True)
-
+    channel.basic_consume(queue='orders.server', on_message_callback=on_message_orders, auto_ack=True)
+    channel.basic_consume(queue='feedback.server', on_message_callback=on_message_feedback, auto_ack=True)
     channel.start_consuming()
 
 setup_rabbitmq()
