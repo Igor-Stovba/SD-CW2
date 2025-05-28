@@ -50,50 +50,25 @@ python terminal_client.py
 3. **Клиент сотрудника** (в отдельном терминале для каждого типа сотрудника):
 ```bash
 # Для обработки заказов:
-python worker_client.py order
+python worker_client.py 
 
 # Для обработки обратной связи:
-python worker_client.py feedback
+python worker_client.py 
 
 
 ```
-
-## Форматы сообщений
-
-### Заказы
-```json
-{
-  "event_type": "order",
-  "id": "уникальный_идентификатор",
-  "items": ["список", "товаров"],
-  "status": "submitted|cancelled",
-  "timestamp": "дата_время"
-}
-```
-
-### Обратная связь
-```json
-{
-  "event_type": "feedback",
-  "type": "complaint|suggestion|thanks",
-  "message": "текст сообщения",
-  "terminal_id": "идентификатор терминала"
-}
-```
-
 
 ## Структура базы данных
 
-Система создает 4 таблицы:
+Система создает 3 таблицы:
 1. `orders` - все заказы (включая отмененные)
-2. `info_requests` - информационные запросы
-3. `feedbacks` - обратная связь от посетителей
+2. `goods` - товары
+3. `feedback` - обратная связь от посетителей
 
 
 Каждая таблица содержит поля:
 - `id` - первичный ключ
 - `data` - JSON с полными данными события
-- `created_at` - дата и время создания записи
 
 ## Мониторинг
 
