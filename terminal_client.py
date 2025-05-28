@@ -6,7 +6,6 @@ def send_event(event_type, data):
     channel = connection.channel()
     
     if event_type == 'orders':
-        print('a')
         channel.basic_publish(
             exchange='',
             routing_key='orders.worker',

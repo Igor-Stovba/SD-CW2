@@ -10,5 +10,5 @@ def setup_rabbitmq():
     channel.queue_declare(queue='orders.server')
     channel.queue_declare(queue='feedback.worker')
     channel.queue_declare(queue='feedback.server')
-
+    channel.queue_declare(queue='info.server')
     connection.close()

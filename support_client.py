@@ -3,7 +3,7 @@ from common import RABBITMQ_URL
 
 def on_order(channel, method, properties, body):
     order = json.loads(body)
-    print(f"New order: {order['id']}")
+    print(f"order : {order['id']}, items: {order['message']}")
 
 connection = pika.BlockingConnection(pika.URLParameters(RABBITMQ_URL))
 channel = connection.channel()
