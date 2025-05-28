@@ -19,8 +19,13 @@ def send_event(event_type, data):
         )
     elif event_type == 'feedback':
         channel.basic_publish(
-            exchange='feedback.direct',
-            routing_key='feedback.submitted',
+            exchange='',
+            routing_key='feedback.worker',
+            body=json.dumps(data)
+        )
+        channel.basic_publish(
+            exchange='',
+            routing_key='feedback.server',
             body=json.dumps(data)
         )
     
