@@ -46,8 +46,8 @@ while True:
 
             while item != 'end':
                 count = int(input("Введите количество: ").strip())
-                item = input("Введите товар: ").strip()
                 data.append({item: count})
+                item = input("Введите товар: ").strip()
 
         if event_type == 'feedback':
             message = input("Введите сообщение: ").strip()
