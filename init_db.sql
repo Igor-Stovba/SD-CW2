@@ -1,0 +1,4 @@
+CREATE TABLE orders (id INTEGER PRIMARY KEY, data TEXT);
+CREATE TABLE info_requests (id INTEGER PRIMARY KEY, data TEXT);
+CREATE TABLE feedbacks (id INTEGER PRIMARY KEY, data TEXT);
+CREATE TABLE maintenance_logs (id INTEGER PRIMARY KEY, data TEXT);
