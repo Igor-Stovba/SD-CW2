@@ -8,8 +8,13 @@ def send_event(event_type, data):
     if event_type == 'orders':
         print('a')
         channel.basic_publish(
-            exchange='orders.direct',
-            routing_key='orders.submitted',
+            exchange='',
+            routing_key='orders.worker',
+            body=json.dumps(data)
+        )
+        channel.basic_publish(
+            exchange='',
+            routing_key='orders.server',
             body=json.dumps(data)
         )
     elif event_type == 'feedback':
