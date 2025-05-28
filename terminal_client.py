@@ -4,35 +4,33 @@ from common import RABBITMQ_URL
 def send_event(event_type, data):
     connection = pika.BlockingConnection(pika.URLParameters(RABBITMQ_URL))
     channel = connection.channel()
-    
+
     if event_type == 'orders':
+        data_json = {'id': 123, 'items': data}
         channel.basic_publish(
             exchange='',
             routing_key='orders.worker',
-            body=json.dumps(data)
+            body=json.dumps(data_json)
         )
         channel.basic_publish(
             exchange='',
             routing_key='orders.server',
-            body=json.dumps(data)
+            body=json.dumps(data_json)
         )
     elif event_type == 'feedback':
+        data_json = {'id': 123, 'message': data}
         channel.basic_publish(
             exchange='',
             routing_key='feedback.worker',
-            body=json.dumps(data)
+            body=json.dumps(data_json)
         )
         channel.basic_publish(
             exchange='',
             routing_key='feedback.server',
-            body=json.dumps(data)
+            body=json.dumps(data_json)
         )
     
     connection.close()
-
-send_event('orders', {'id': 123, 'items': ['coffee', 'cake'], 'status': 'submitted'})
-send_event('feedback', {'id': 123, 'items': ['coffee', 'cake'], 'status': 'submitted'})
-
 
 
 while True:
